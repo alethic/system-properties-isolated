@@ -1,2 +1,2 @@
-rootProject.name = "scoped-system-properties"
-include("scoped-lib", "scoped-junit")
+rootProject.name = "system-properties-isolated"
+include("isolated-lib")

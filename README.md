@@ -19,12 +19,12 @@ This library helps to deal with those 3rd party dependencies that require the us
 ### Gradle
 *Groovy*
 ```groovy
-implementation 'io.github.bmuskalla:scoped-system-properties:1.1.0'
+implementation 'io.github.bmuskalla:isolated-system-properties:1.1.0'
 ```
 
 *Kotlin*
 ```kotlin
-implementation("io.github.bmuskalla:scoped-system-properties:1.1.0")
+implementation("io.github.bmuskalla:isolated-system-properties:1.1.0")
 ```
 
 ### Maven
@@ -57,12 +57,12 @@ System.getProperty("someKey") // = "global value"
 ### Gradle
 *Groovy*
 ```groovy
-implementation 'io.github.bmuskalla:scoped-system-properties-junit:1.1.0'
+implementation 'io.github.bmuskalla:isolated-system-properties-junit:1.1.0'
 ```
 
 *Kotlin*
 ```kotlin
-implementation("io.github.bmuskalla:scoped-system-properties-junit:1.1.0")
+implementation("io.github.bmuskalla:isolated-system-properties-junit:1.1.0")
 ```
 
 ### Maven

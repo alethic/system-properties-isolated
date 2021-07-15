@@ -14,7 +14,7 @@
  * the License.
  ******************************************************************************/
 
-package io.bmuskalla.internal.system.properties;
+package solutions.alethic.system.properties.isolated;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,27 +31,25 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import io.bmuskalla.system.properties.PropertiesMethodProvider;
-
-public class DelegatingPropertiesTest {
+public class IsolatedDelegatingPropertiesTest {
 
 	@Test
 	void propertyNamesIncludesScopedValues() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "newKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "newKey");
 
 		assertThat(Collections.list(properties.propertyNames())).asList().containsExactlyInAnyOrder("key", "newKey");
 	}
 
 	@Test
 	void stringPropertyNamesIncludesScopedValues() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "newKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "newKey");
 
 		assertThat(properties.stringPropertyNames()).containsExactlyInAnyOrder("key", "newKey");
 	}
 
 	@Test
 	void keysIncludesScopedValues() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "newKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "newKey");
 
 		assertThat(properties.keySet()).containsExactlyInAnyOrder("key", "newKey");
 		assertThat(Collections.list(properties.keys())).asList().containsExactlyInAnyOrder("key", "newKey");
@@ -59,7 +57,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void canRemoveScopedKey() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		properties.remove("scopedKey");
 
@@ -68,7 +66,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void containsSeesScopedEntries() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		boolean contains = properties.contains("y");
 		boolean containsKey = properties.containsKey("scopedKey");
@@ -79,7 +77,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void storeContainsScopedKeys() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
 		properties.store(stream, "comments");
@@ -91,7 +89,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void valuesContainsScopedValues() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		Collection<Object> values = properties.values();
 
@@ -100,7 +98,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void valuesContainsOnlyScopedValuesWithOverride() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "key");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "key");
 
 		Collection<Object> values = properties.values();
 
@@ -109,7 +107,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void storeWithoutBaselineContainsScopedKeys() throws Exception {
-		DelegatingProperties properties = new DelegatingProperties(new Properties());
+		IsolatedDelegatingProperties properties = new IsolatedDelegatingProperties(new Properties());
 		properties.setProperty("scopedKey", "x");
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -123,7 +121,7 @@ public class DelegatingPropertiesTest {
 	void setPropertyStoresValueOnlyScoped() throws Exception {
 		Properties baseline = new Properties();
 		baseline.put("key", "x");
-		DelegatingProperties properties = new DelegatingProperties(baseline);
+		IsolatedDelegatingProperties properties = new IsolatedDelegatingProperties(baseline);
 		properties.setProperty("key", "value");
 
 		assertThat(properties.getProperty("key")).isEqualTo("value");
@@ -132,7 +130,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void setPropertyReturnsBaselineValueIfNoScopedValuePresent() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		Object previousValue = properties.setProperty("key", "value");
 
@@ -142,14 +140,14 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void getPropertyFallsbackToBaseline() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		assertThat(properties.getProperty("key")).isEqualTo("x");
 	}
 
 	@Test
 	void getPropertyWithDefaultWithBaselineKey() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		String value = properties.getProperty("key", "notused");
 
@@ -158,7 +156,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void getPropertyWithDefaultWithScopedKey() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		String value = properties.getProperty("scopedKey", "notused");
 
@@ -167,7 +165,7 @@ public class DelegatingPropertiesTest {
 
 	@Test
 	void getPropertyWithDefaultWithMissingKey() throws Exception {
-		DelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
+		IsolatedDelegatingProperties properties = propertiesWithRegularAndScopedKey("key", "scopedKey");
 
 		String value = properties.getProperty("xxx", "default");
 
@@ -175,19 +173,19 @@ public class DelegatingPropertiesTest {
 	}
 
 	@ParameterizedTest(name = "{1}")
-	@ArgumentsSource(PropertiesMethodProvider.class)
+	@ArgumentsSource(IsolatedPropertiesMethodProvider.class)
 	void testWhetherMethodIsImplementedByUs(Method method, String testDisplayName) {
-		List<Method> methodImplementations = Arrays.stream(DelegatingProperties.class.getDeclaredMethods())
+		List<Method> methodImplementations = Arrays.stream(IsolatedDelegatingProperties.class.getDeclaredMethods())
 				.filter(m -> m.getName().equals(method.getName()))
 				.filter(m -> Arrays.equals(m.getParameterTypes(), method.getParameterTypes()))
 				.collect(Collectors.toList());
 		assertThat(methodImplementations).as("missing delegate: " + testDisplayName).hasSize(1);
 	}
 
-	private DelegatingProperties propertiesWithRegularAndScopedKey(String regularKey, String scopedKey) {
+	private IsolatedDelegatingProperties propertiesWithRegularAndScopedKey(String regularKey, String scopedKey) {
 		Properties baseline = new Properties();
 		baseline.put(regularKey, "x");
-		DelegatingProperties properties = new DelegatingProperties(baseline);
+		IsolatedDelegatingProperties properties = new IsolatedDelegatingProperties(baseline);
 		properties.setProperty(scopedKey, "y");
 		return properties;
 	}

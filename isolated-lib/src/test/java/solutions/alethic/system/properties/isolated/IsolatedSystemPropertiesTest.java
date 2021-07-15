@@ -14,7 +14,7 @@
  * the License.
  ******************************************************************************/
 
-package io.bmuskalla.system.properties;
+package solutions.alethic.system.properties.isolated;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,11 +23,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
-class ScopedSystemPropertiesTest {
+class IsolatedSystemPropertiesTest {
 
 	@Test
 	void onlySeesScopedValueWithinScope() {
-		try (PropertyEnvironment env = ScopedSystemProperties.newPropertyEnvironment()) {
+		try (IsolatedPropertyEnvironment env = IsolatedSystemProperties.newPropertyEnvironment()) {
 			env.setProperty("scopedKey", "scopedValue");
 			assertThatSystemPropertyHasValue("scopedKey", "scopedValue");
 		}
@@ -47,7 +47,7 @@ class ScopedSystemPropertiesTest {
 			assertThatSystemPropertyHasValue("scopedKey", null);
 			assertionLatch.countDown();
 		}, "outside scope").start();
-		try (PropertyEnvironment env = ScopedSystemProperties.newPropertyEnvironment()) {
+		try (IsolatedPropertyEnvironment env = IsolatedSystemProperties.newPropertyEnvironment()) {
 			env.setProperty("scopedKey", "scopedValue");
 			setupLatch.countDown();
 			assertThatSystemPropertyHasValue("scopedKey", "scopedValue");
@@ -59,7 +59,7 @@ class ScopedSystemPropertiesTest {
 
 	@Test
 	void booleanMethodUsesScopedValue() {
-		try (PropertyEnvironment env = ScopedSystemProperties.newPropertyEnvironment()) {
+		try (IsolatedPropertyEnvironment env = IsolatedSystemProperties.newPropertyEnvironment()) {
 			env.setProperty("scopedKey", "true");
 			assertThat(Boolean.getBoolean("scopedKey")).isTrue();
 		}

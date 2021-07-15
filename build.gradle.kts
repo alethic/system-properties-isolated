@@ -1,6 +1,6 @@
 allprojects {
-    version = "1.1.0"
-    group = "io.github.bmuskalla"
+    version = "1.0.0"
+    group = "solutions.alethic"
 
     repositories {
         jcenter()

@@ -14,7 +14,7 @@
  * the License.
  ******************************************************************************/
 
-package io.bmuskalla.system.properties;
+package solutions.alethic.system.properties.isolated;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 
-public class PropertiesMethodProvider implements ArgumentsProvider {
+public class IsolatedPropertiesMethodProvider implements ArgumentsProvider {
 
 	@Override
 	public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {

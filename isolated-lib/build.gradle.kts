@@ -18,13 +18,13 @@ java {
 publishing {
     publications {
         create<MavenPublication>("sonatype") {
-            artifactId = "scoped-system-properties"
+            artifactId = "system-properties-isolated"
             from(components["java"])
 
             pom {
-                name.set("Scoped System Properties")
-                url.set("https://github.com/bmuskalla/scoped-system-properties")
-                description.set("Easy to use, lock-free, thread-safe scoped system properties to isolate changes to global state.")
+                name.set("Isolated System Properties")
+                url.set("https://github.com/alethic/system-properties-isolated")
+                description.set("Easy to use, lock-free, thread-safe isolated system properties to isolate changes to global state.")
                 licenses {
                     license {
                         name.set("Apache License 2.0")
@@ -33,17 +33,17 @@ publishing {
                 }
                 developers {
                     developer {
-                        id.set("bmuskalla")
-                        name.set("Benjamin Muskalla")
-                        email.set("b.muskalla@gmail.com")
+                        id.set("alethic")
+                        name.set("Jerome Haltom")
+                        email.set("jhaltom@alethic.solutions")
                     }
                 }
                 scm {
-                    connection.set("scm:git:git@github.com:bmuskalla/scoped-system-properties.git")
-                    url.set("https://github.com/bmuskalla/scoped-system-properties")
+                    connection.set("scm:git:git@github.com:alethic/system-properties-isolated.git")
+                    url.set("https://github.com/alethic/system-properties-isolated")
                 }
                 issueManagement {
-                    url.set("https://github.com/bmuskalla/scoped-system-properties/issues")
+                    url.set("https://github.com/alethic/system-properties-isolated/issues")
                     system.set("GitHub")
                 }
             }
