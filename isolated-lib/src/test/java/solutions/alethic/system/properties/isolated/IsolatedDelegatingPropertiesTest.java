@@ -82,9 +82,10 @@ public class IsolatedDelegatingPropertiesTest {
 
 		properties.store(stream, "comments");
 
+		String s = stream.toString();
 		assertThat(stream.toString()).startsWith("#comment");
-		assertThat(stream.toString()).contains("key=x\n");
-		assertThat(stream.toString()).contains("scopedKey=y\n");
+		assertThat(stream.toString()).contains(String.format("key=x%n"));
+		assertThat(stream.toString()).contains(String.format("scopedKey=y%n"));
 	}
 
 	@Test
@@ -114,7 +115,7 @@ public class IsolatedDelegatingPropertiesTest {
 		properties.store(stream, "comments");
 
 		assertThat(stream.toString()).startsWith("#comment");
-		assertThat(stream.toString()).endsWith("\nscopedKey=x\n");
+		assertThat(stream.toString()).endsWith(String.format("%nscopedKey=x%n"));
 	}
 
 	@Test
