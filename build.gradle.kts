@@ -3,7 +3,7 @@ allprojects {
     group = "solutions.alethic"
 
     repositories {
-        jcenter()
+        mavenCentral()
     }
 
     apply(plugin = "java-library")
